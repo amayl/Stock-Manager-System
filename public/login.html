@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Nithush Foods</h1>
+    <div>
+        <form action="https://example.com">
+            <div class="container">
+              <h1>Login</h1>
+              <div class="inputField">
+                <label for="email">Email</label>
+                <input type="text" placeholder="Enter Email" name="email" required><br>
+              </div>
+          
+              <div class="inputField">
+                <label for="psw">Password</label>
+               <input type="password" placeholder="Enter Password" name="psw" required><br>
+              </div>
+
+              <div class="clearfix">
+                <button onclick="window.location.href='index.html'" type="button" class="backbtn">Back</button>
+                <button onclick="onSubmit()" type="submit" class="signupbtn">Login</button>
+              </div>
+            </div>
+</body>
+<script>
+  function onCancel() {
+    console.log('Cancel button has been clicked')
+    addEventListener()
+  }
+
+  function onSubmit() {
+    console.log('Submit button has been clicked')
+  }
+</script>
+</html>

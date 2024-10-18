@@ -1,0 +1,17 @@
+h1 {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.radioBtn {
+  padding: 0.5rem;
+}
+
+.inputField {
+  padding: 0.8rem;
+}
