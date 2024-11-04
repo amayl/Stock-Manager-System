@@ -1,0 +1,11 @@
+USERS: (6 columns)
+================================================
+userID - fname - lname - password - email - role
+
+PRODUCTS: (4 columns)
+=========================================================
+productID - productName - price - category
+
+INVENTORY: (4 columns)
+================================================
+productID - productName - quantity - price
