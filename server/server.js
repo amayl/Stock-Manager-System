@@ -15,7 +15,7 @@ app.post('/signup', (req, res) => {
   const data = req.body;
 
 
-  res.send({ hello: 'world' }) // sends hello world to the console of server running
+  res.send({ Success: 'This server is working' }) // sends message to the console of server running
 })
 
 app.listen(4000) // listens from port 4000
