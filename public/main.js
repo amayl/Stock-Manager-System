@@ -5,6 +5,16 @@ let email = document.getElementById('email');
 let password = document.getElementById('psw');
 let role = document.getElementById('role');
 
+// Function to get the selected role from radio buttons
+function role() {
+    const roleInputs = document.querySelectorAll('input[name="role"]');
+    for (const input of roleInputs) {
+        if (input.checked) {
+            return (input.value)
+        }
+    }
+}
+
 // Assuming there's a form with id 'signupForm'
 document.getElementById('signupForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission
@@ -15,7 +25,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
         lastName: lname.value,
         email: email.value,
         password: password.value,
-        // role: role.value
+        role: role() || 'customer'
     };
 
     // Send the data to the server

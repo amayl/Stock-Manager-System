@@ -15,29 +15,23 @@ app.use(express.json()) // to parse the JSON body
 // sends 'Pong' if successful connection
 app.get('/ping', (req, res) => res.send('Pong'))
 
+
 app.post('/signup', (req, res) => {
-  const data = req.body;
-  
-  function onSubmit() {
-    // Gather input values
-    const user = `${fname.value}, ${lname.value}, ${email.value}, ${password.value}, ${role.value}\n`;
-    // import the append functionality from file system
-    const fs = require('fs');
+  const { fname, lname, email, password, role } = req.body;
 
-    // Append the data to the CSV files
-    appendFile(user, users, (err) => {
-      if (err) {
-        console.error('Error writing to file', err)
-      }
-      else {
-        console.log('User info successfully added')
-      }
-    })
-  }
+  const user = `${fname}, ${lname}, ${email}, ${password}, ${role}\n`;
 
-
-  res.send({ Success: 'This server is working' }) // sends message to the console of server running
-})
+  fs.appendFile(users, user, (err) => {
+    if (err) {
+      console.error('Error writing to file', err);
+      return res.status(500).send({ error: 'Failed to save user' });
+    } else {
+      console.log('User  info successfully added');
+      return res.status(201).send({ message: 'User  registered successfully' });
+    }
+  });
+});
 
 app.listen(4000) // listens from port 4000
 console.log('Server running') // sends message to the console upon running
+
