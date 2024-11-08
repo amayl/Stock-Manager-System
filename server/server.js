@@ -32,7 +32,7 @@ app.post('/signup', (req, res) => {
         }
         else {
             console.log('User  info successfully added');
-            return res.status(201).send({ message: 'User  registered successfully' });
+            return res.status(201).send({ message: 'User registered successfully' });
         };
     });
 });
