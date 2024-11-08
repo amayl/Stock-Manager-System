@@ -10,6 +10,10 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
         role: document.querySelector('input[name="role"]:checked').value // Get selected role
     };
 
+    if ((userData.role == 'manager' || userData.role == 'owner') && userData.email.includes('@ntshfoods.com') == false) {
+        throw new Error('Ensure correct email has been used for selected role')
+    };
+
     // Send the data to the server
     fetch('http://localhost:4000/signup', {
         method: 'POST',

@@ -25,10 +25,15 @@ app.post('/signup', (req, res) => {
         if (err) {
             console.error('Error writing to file', err);
             return res.status(500).send({ error: 'Failed to save user' });
-        } else {
+        }
+        else if ((role == 'manager' || role == 'owner') && (email.includes('@ntshfoods.com') == false )) {
+            console.error('Error - Please enter a valid email address', err);
+            return res.status(401).send({ error: 'Ensure correct email has been used for selected role'})
+        }
+        else {
             console.log('User  info successfully added');
             return res.status(201).send({ message: 'User  registered successfully' });
-        }
+        };
     });
 });
 
