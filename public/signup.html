@@ -11,7 +11,7 @@
     <ul id="users"></ul>
 
     <div>
-        <form id="signupForm">
+        <div id="signupForm">
             <div class="container">
               <h1>Sign Up</h1>
               <p>Please fill in this form to create an account.</p>
@@ -54,12 +54,22 @@
               </div>
 
               <div class="clearfix">
-                <button type="submit" class="signupbtn">Sign Up</button>
+                <button class="signupbtn" id="signupBtn">Sign Up</button>
               </div>
             </div>
-        </form>
+          </div>
     </div>
 
-    <script src="main.js"></script>
+
+    <div class="modal hidden" id="registered-modal">
+      <div class="modal-box">
+        User registed successfully
+        <br />
+        <br />
+        <button id="proceedBtn">Proceed to Login</button>
+      </div>
+    </div>
+
+    <script src="signup.js"></script>
 </body>
 </html>

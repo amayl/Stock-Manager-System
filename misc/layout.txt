@@ -9,3 +9,7 @@ productID - productName - price - category
 INVENTORY: (4 columns)
 ================================================
 productID - productName - quantity - price
+
+
+
+To run the site, go to terminal and type (serve ./public)
