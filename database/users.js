@@ -1,5 +1,7 @@
+// Import the mongoose module
 const mongoose = require('mongoose');
 
+// Create a user schema 
 const userSchema = new mongoose.Schema({
     fname: String,
     lname: String,
