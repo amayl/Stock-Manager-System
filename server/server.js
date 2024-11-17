@@ -4,6 +4,7 @@ const mongoose = require('mongoose'); // mongodb import
 const app = express(); // app instance (server object)
 const path = require('path');
 const bcrypt = require('bcrypt');
+const userCollection = require('/Users/amayl/Desktop/Computer Science/compsci things/github repositories /A Level Computer Science NEA/stock-management-system/database/users.js')
 
 // Middleware
 app.use(cors()); // allow all origins
@@ -18,29 +19,39 @@ db.once('open', () => {
 
 const saltRounds = 10; // Recommended salt rounds for bcrypt
 
-const userSchema = new mongoose.Schema({
-    fname: String,
-    lname: String,
-    email: String,
-    userPassword: String // Renamed to userPassword for clarity
-});
-
-const Users = mongoose.model('Users', userSchema);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'signup.html'));
 });
 
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body; // Get email and password from request body
+    userCollection.findOne({email: email})
+    .then(user => {
+        if (user) {
+            if (user.password == password) {
+                res.json('Login successful')
+            }
+            else {
+                res.json('Password is incorrect')
+            }
+        }
+        else {
+            res.json('Email does not exist')
+        }
+    })
+});
+
+
 app.post('/signup', async (req, res) => {
     const { fname, lname, email, password } = req.body;
-
     try {
         // Hash the password
         const salt = await bcrypt.genSalt(saltRounds); // Generate a salt
         const hashedPassword = await bcrypt.hash(password, salt); // Hash the password with the salt
 
         // Create a new user instance with the hashed password
-        const user = new Users({
+        const user = new userCollection({
             fname,
             lname,
             email,

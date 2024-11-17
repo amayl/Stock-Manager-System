@@ -9,23 +9,23 @@
 <body>
     <h1>Nithush Foods</h1>
     <div>
-        <form action="https://example.com">
+        <form action="/login" method="POST">
             <div class="container">
               <h1>Login</h1>
               <div class="inputField">
                 <label for="email">Email</label>
-                <input type="text" placeholder="Enter Email" name="email" required><br>
+                <input id="email" type="text" placeholder="Enter Email" name="email" required><br>
               </div>
-          
               <div class="inputField">
                 <label for="psw">Password</label>
-               <input type="password" placeholder="Enter Password" name="psw" required><br>
+               <input id="psw" type="password" placeholder="Enter Password" name="psw" required><br>
               </div>
 
               <div class="clearfix">
                 <button onclick="window.location.href='signup.html'" type="button" class="backbtn">Back</button>
-                <button type="submit" class="signupbtn">Login</button>
+                <button type="submit" class="loginBtn" id="loginBtn">Login</button>
               </div>
             </div>
+            <script src="login.js"></script>
 </body>
 </html>
