@@ -1,4 +1,4 @@
-document.getElementById('loginBtn').addEventListener('click', function (event) {
+document.getElementById('form').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the default form submission
 
     const loginData = {
@@ -24,9 +24,12 @@ document.getElementById('loginBtn').addEventListener('click', function (event) {
         })
         .then(data => {
             console.log(data.message); // Handle success
-            // Redirect or close modal here
-            // document.getElementById("registered-modal").classList.add("hidden"); // Uncomment if you have a modal to close
-            window.location = "./main.html"; // Redirect to main page
+            if (loginData.email.includes('@ntshfoods.com')) {
+                window.location = "./staff-view.html"; // Redirect to main page
+            }
+            else {
+                window.location = "./customer-view.html";
+            }
         })
         .catch((error) => {
             console.error('Error:', error);
