@@ -24,10 +24,10 @@ document.getElementById('form').addEventListener('submit', function (event) {
         })
         .then(data => {
             console.log(data.message); // Handle success
-            if (loginData.email.includes('@ntshfoods.com')) {
-                window.location = "./staff-view.html"; // Redirect to main page
+            if (loginData.email.includes('@ntshfoods.com')) { // check if the email is a staff email
+                window.location = "./staff-view.html"; // Redirect to staff page
             }
-            else {
+            else { // redirect to customer page if staff email not entered
                 window.location = "./customer-view.html";
             }
         })
