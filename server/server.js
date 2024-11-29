@@ -4,7 +4,8 @@ const mongoose = require('mongoose'); // mongodb import
 const app = express(); // app instance (server object)
 const path = require('path');
 const bcrypt = require('bcrypt');
-const userCollection = require('/Users/amayl/Desktop/Computer Science/compsci things/github repositories /A Level Computer Science NEA/stock-management-system/database/users.js')
+const userCollection = require('/Users/amayl/Documents/Computer Science/compsci things/github repositories /A Level Computer Science NEA/stock-management-system/database/users.js')
+const Product = require('/Users/amayl/Documents/Computer Science/compsci things/github repositories /A Level Computer Science NEA/stock-management-system/database/productsDB.js');
 
 // Middleware
 app.use(cors()); // allow all origins
@@ -29,7 +30,7 @@ app.post('/login', async (req, res) => {
     userCollection.findOne({email: email})
     .then(user => {
         if (user) {
-            if (user.password == password) {
+            if (user.password === password) {
                 res.json('Login successful')
             }
             else {
@@ -65,6 +66,22 @@ app.post('/signup', async (req, res) => {
     } catch (error) {
         console.error('Error during signup:', error);
         res.status(500).send({ error: "Internal Server Error" }); // Handle errors
+    }
+});
+
+app.post('/staff-view', async (req, res) => {
+    const { itemName, price, quantity, category } = req.body;
+
+    // Create a new product instance using the Product class
+    const product = new Product(itemName, price, quantity, category);
+
+    try {
+        // Save the product to the database
+        await product.save(); // This line calls the save method in the Product class
+        res.status(201).send({ message: 'Product created successfully' });
+    } catch (error) {
+        console.error('Error during product creation:', error);
+        res.status(500).send({ error: 'Failed to create product' });
     }
 });
 

@@ -1,5 +1,3 @@
-const productCollection = require('/Users/amayl/Desktop/Computer Science/compsci things/github repositories /A Level Computer Science NEA/stock-management-system/database/products.js'); // Adjust the path accordingly
-
 class Product {
     constructor(name, price, quantity, category) {
         this.name = name;
@@ -9,17 +7,18 @@ class Product {
     }
 
     async save() {
-        const product = new productCollection({
+        const product = new ProductModel({
             name: this.name,
             price: this.price,
             quantity: this.quantity,
             category: this.category
         });
-        return await product.save();
+        return await product.save(); // This saves the product to the MongoDB collection
     }
 
     static async findAll() {
-        return await productCollection.find({});
+        return await ProductModel.find({}); // This retrieves all products from the collection
     }
-
 }
+
+module.exports = Product; // Export the Product class
