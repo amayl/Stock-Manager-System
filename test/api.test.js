@@ -7,7 +7,7 @@ const { expect } = require("chai"); // Import Chai's expect for assertions
 
 // Connect to the test database before running tests
 before(async () => {
-  await mongoose.connect("mongodb://localhost:27017/testStockManager", {
+  await mongoose.connect("mongodb://localhost:27017/stockManager", {
     useNewUrlParser: true, // Use new URL parser
     useUnifiedTopology: true, // Use unified topology
   });
