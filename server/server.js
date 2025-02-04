@@ -12,13 +12,20 @@ app.use(cors()); // allow all origins
 app.use(express.json()); // to parse the JSON body
 
 // MongoDB connection
-if (!mongoose.connection) {
-  mongoose.connect("mongodb://localhost:27017/stockManager");
-  const db = mongoose.connection;
-  db.once("open", () => {
-    console.log("MongoDB connection established");
+if (!mongoose.connection || mongoose.connection.readyState === 0) {
+  mongoose.connect("mongodb://localhost:27017/stockManager", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
 }
+const db = mongoose.connection;
+db.on("error", (err) => {
+  console.error("MongoDB connection error:", err);
+});
+db.once("open", () => {
+  console.log("MongoDB connection established");
+});
+
 const saltRounds = 10; // Recommended salt rounds for bcrypt
 
 app.get("/", (req, res) => {
@@ -89,3 +96,13 @@ app.listen(4000, () => {
 });
 
 module.exports = app; // Export the app instance
+
+// Fix 1: Instead, you should store hashed and salted versions of the passwords and compare the hashed versions.
+
+// Fix 2: You should add try-catch blocks to handle any potential errors.
+
+// Fix 3: You should add validation to ensure that the input data is correct and consistent.
+
+// Fix 4: You should use a consistent approach to handle errors, such as using try-catch blocks or error handling middleware.
+
+// Fix 5: You should add headers like Content-Security-Policy, X-Frame-Options, and X-XSS-Protection to enhance security.

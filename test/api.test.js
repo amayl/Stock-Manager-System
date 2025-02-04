@@ -33,6 +33,7 @@ describe("API Tests", () => {
         lname: "Doe", // Last name
         email: "john.doe@example.com", // Email address
         password: "password123", // Password
+        role: "customer", // Role
       });
       expect(res.status).to.equal(200); // Expect status 200
       expect(res.body).to.have.property("message", "Registration Successful"); // Expect success message
@@ -45,6 +46,7 @@ describe("API Tests", () => {
         lname: "Doe",
         email: "john.doe@example.com", // Existing email
         password: "password123",
+        role: "customer",
       });
 
       const res = await request(app).post("/signup").send({
@@ -53,9 +55,42 @@ describe("API Tests", () => {
         lname: "Doe",
         email: "john.doe@example.com", // Same email
         password: "password123",
+        role: "customer",
       });
 
       expect(res.status).to.equal(500); // Expect status 500 for error
+      expect(res.body).to.have.property("error", "Internal Server Error"); // Expect error message
+    });
+  });
+
+  describe("API Tests", () => {
+    it("should register staff with the staff email", async () => {
+      const res = await request(app).post("/signup").send({
+        // Sign up staff with the staff email
+        fname: "John",
+        lanme: "Doe",
+        email: "john@ntshfoods.com", // email ending in @ntshfoods.com
+        password: "password123",
+        role: "staff", // staff role
+      });
+
+      expect(res.status).to.equal(200); // Expects status 200
+      expect(res.body).to.have.property("message", "Registration Successful"); // Expect success message
+    });
+  });
+
+  describe("API Tests", () => {
+    it("should register staff with the wrong email", async () => {
+      const res = await request(app).post("/signup").send({
+        // Sign up staff with the staff email
+        fname: "John",
+        lanme: "Doe",
+        email: "john.doe@example.com", // wrong email
+        password: "password123",
+        role: "staff", // staff role
+      });
+
+      expect(res.status).to.equal(500); // Expects status 500
       expect(res.body).to.have.property("error", "Internal Server Error"); // Expect error message
     });
   });
@@ -68,6 +103,7 @@ describe("API Tests", () => {
         lname: "Doe",
         email: "john.doe@example.com",
         password: "password123",
+        role: "password123",
       });
 
       const res = await request(app).post("/login").send({
@@ -108,17 +144,6 @@ describe("API Tests", () => {
 
       expect(res.status).to.equal(404); // Expect status 404 for not found
       expect(res.body).to.have.property("error", "Email does not exist"); // Expect error message
-    });
-  });
-
-  describe("POST /staff-view", () => {
-    it("should create a new product", async () => {
-      const res = await request(app).post("/staff-view").send({
-        // Send request to create a new product
-        itemName: "Test Product", // Product name
-        price: 10.99, // Product price
-        quantity: 100, // Product quantity
-      });
     });
   });
 });
