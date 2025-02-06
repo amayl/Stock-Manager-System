@@ -36,7 +36,8 @@ describe("API Tests", () => {
         role: "customer", // Role
       });
       expect(res.status).to.equal(200); // Expect status 200
-      expect(res.body).to.have.property("message", "Registration Successful"); // Expect success message
+      expect(res.body).to.have.property("message"); // Expect success message
+      expect(res.body.message).to.equal("Registration Successful"); // Expect success message
     });
 
     it("should not register a user with existing email", async () => {
@@ -59,39 +60,38 @@ describe("API Tests", () => {
       });
 
       expect(res.status).to.equal(500); // Expect status 500 for error
-      expect(res.body).to.have.property("error", "Internal Server Error"); // Expect error message
+      expect(res.body).to.have.property("error"); // Expect error message
+      expect(res.body.error).to.equal("Internal Server Error"); // Expect error message
     });
-  });
 
-  describe("API Tests", () => {
     it("should register staff with the staff email", async () => {
       const res = await request(app).post("/signup").send({
         // Sign up staff with the staff email
         fname: "John",
-        lanme: "Doe",
+        lname: "Doe",
         email: "john@ntshfoods.com", // email ending in @ntshfoods.com
         password: "password123",
         role: "staff", // staff role
       });
 
       expect(res.status).to.equal(200); // Expects status 200
-      expect(res.body).to.have.property("message", "Registration Successful"); // Expect success message
+      expect(res.body).to.have.property("message"); // Expect success message
+      expect(res.body.message).to.equal("Registration Successful"); // Expect success message
     });
-  });
 
-  describe("API Tests", () => {
-    it("should register staff with the wrong email", async () => {
+    it("should not register staff with the wrong email", async () => {
       const res = await request(app).post("/signup").send({
-        // Sign up staff with the staff email
+        // Sign up staff with the wrong email
         fname: "John",
-        lanme: "Doe",
+        lname: "Doe",
         email: "john.doe@example.com", // wrong email
         password: "password123",
         role: "staff", // staff role
       });
 
-      expect(res.status).to.equal(500); // Expects status 500
-      expect(res.body).to.have.property("error", "Internal Server Error"); // Expect error message
+      expect(res.status).to.equal(500); // Expect status 500 for error
+      expect(res.body).to.have.property("error"); // Expect error message
+      expect(res.body.error).to.equal("Internal Server Error"); // Expect error message
     });
   });
 
@@ -103,7 +103,7 @@ describe("API Tests", () => {
         lname: "Doe",
         email: "john.doe@example.com",
         password: "password123",
-        role: "password123",
+        role: "customer",
       });
 
       const res = await request(app).post("/login").send({
@@ -113,7 +113,8 @@ describe("API Tests", () => {
       });
 
       expect(res.status).to.equal(200); // Expect status 200
-      expect(res.body).to.have.property("message", "Login successful"); // Expect success message
+      expect(res.body).to.have.property("message"); // Expect success message
+      expect(res.body.message).to.equal("Login successful"); // Expect success message
     });
 
     it("should not login with incorrect password", async () => {
@@ -123,6 +124,7 @@ describe("API Tests", () => {
         lname: "Doe",
         email: "john.doe@example.com",
         password: "password123",
+        role: "customer",
       });
 
       const res = await request(app).post("/login").send({
@@ -132,7 +134,8 @@ describe("API Tests", () => {
       });
 
       expect(res.status).to.equal(401); // Expect status 401 for unauthorized
-      expect(res.body).to.have.property("error", "Password is incorrect"); // Expect error message
+      expect(res.body).to.have.property("error"); // Expect error message
+      expect(res.body.error).to.equal("Password is incorrect"); // Expect error message
     });
 
     it("should not login with non-existent email", async () => {
@@ -143,7 +146,8 @@ describe("API Tests", () => {
       });
 
       expect(res.status).to.equal(404); // Expect status 404 for not found
-      expect(res.body).to.have.property("error", "Email does not exist"); // Expect error message
+      expect(res.body).to.have.property("error"); // Expect error message
+      expect(res.body.error).to.equal("Email does not exist"); // Expect error message
     });
   });
 });
