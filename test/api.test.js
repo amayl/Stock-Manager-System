@@ -61,7 +61,7 @@ describe("API Tests", () => {
 
       expect(res.status).to.equal(500); // Expect status 500 for error
       expect(res.body).to.have.property("error"); // Expect error message
-      expect(res.body.error).to.equal("Internal Server Error"); // Expect error message
+      expect(res.body.error).to.equal("Email already exists"); // Expect error message
     });
 
     it("should register staff with the staff email", async () => {
@@ -91,7 +91,7 @@ describe("API Tests", () => {
 
       expect(res.status).to.equal(500); // Expect status 500 for error
       expect(res.body).to.have.property("error"); // Expect error message
-      expect(res.body.error).to.equal("Internal Server Error"); // Expect error message
+      expect(res.body.error).to.equal("Incorrect email for staff"); // Expect error message
     });
   });
 

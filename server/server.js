@@ -46,8 +46,18 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
-  const { fname, lname, email, password } = req.body;
+  const { fname, lname, email, password, role } = req.body;
   try {
+    // Check if the email already exists
+    const existingUser = await userCollection.findOne({ email });
+    if (existingUser) {
+      return res.status(500).send({ error: "Email already exists" });
+    }
+
+    if (role == "staff" && !email.includes("@ntshfoods.com")) {
+      return res.status(500).send({ error: "Incorrect email for staff" });
+    }
+
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -56,6 +66,7 @@ app.post("/signup", async (req, res) => {
       lname,
       email,
       userPassword: hashedPassword,
+      role,
     });
 
     await user.save();
