@@ -30,7 +30,7 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
+    return res.status(400).json({ error: "Email and password are required" });
   }
 
   try {
@@ -39,12 +39,16 @@ app.post("/login", async (req, res) => {
       const isPasswordValid = await bcrypt.compare(password, user.userPassword);
       if (isPasswordValid) {
         return res.json({ message: "Login successful" }); // returns object message
+      } else {
+        return res.status(401).json({ error: "Password is incorrect" }); // return object error
       }
     }
-    res.status(401).json({ message: "Invalid email or password" });
+
+    // If user is not found, return invalid email or password
+    res.status(401).json({ error: "Email does not exist" }); // return object error
   } catch (error) {
     console.error("Error during login:", error);
-    res.status(500).send({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error" }); // return object error
   }
 });
 

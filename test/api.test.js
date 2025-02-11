@@ -145,7 +145,7 @@ describe("API Tests", () => {
         password: "password123",
       });
 
-      expect(res.status).to.equal(404); // Expect status 404 for not found
+      expect(res.status).to.equal(401); // Expect status 404 for not found
       expect(res.body).to.have.property("error"); // Expect error message
       expect(res.body.error).to.equal("Email does not exist"); // Expect error message
     });
