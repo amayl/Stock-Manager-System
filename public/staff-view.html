@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="staff-style.css">
     <title>Stock Manager</title>
 </head>
 <body>
@@ -33,6 +34,8 @@
             <label for="price">Price (£)</label>
             <input type="float" id="price" placeholder="Price (£)" required><br>
             <button id="addItemBtn" type="submit">Add Item</button>
+            <button id="deleteItemBtn" type="button">Delete Item</button>
+            <button id="editItemBtn" type="button">Edit Item</button>
         </form>
         <div class="view-stats">
             <button>View Statisitcs</button>
@@ -52,60 +55,6 @@
                     </tbody>
                 </table>
             </div>
-            <style>
-                table {
-                    border-collapse: collapse;
-                    border-spacing: 0;
-                    width: 100%;
-                    border: 1px solid #ddd;
-                }
-            
-                th,
-                td {
-                    text-align: left;
-                    padding: 16px;
-                }
-            
-                tr:nth-child(even) {
-                    background-color: #f2f2f2;
-                }
-            
-                .scrollable-table {
-                    max-height: 300px;
-                    /* Set a maximum height for the table */
-                    overflow-y: auto;
-                    /* Enable vertical scrolling */
-                    display: block;
-                    /* Make the table scrollable */
-                }
-            </style>
-            <script>
-                document.getElementById('inventory-form').addEventListener('submit', function () {
-                    // Get the values from the form
-                    const itemName = document.getElementById('item-name').value;
-                    const category = document.getElementById('category').value;
-                    const quantity = document.getElementById('item-quantity').value;
-                    const price = document.getElementById('price').value;
-
-                    // Create a new row and cells
-                    const table = document.getElementById('inventory-list');
-                    const newRow = table.insertRow();
-
-                    const cell1 = newRow.insertCell(0);
-                    const cell2 = newRow.insertCell(1);
-                    const cell3 = newRow.insertCell(2);
-                    const cell4 = newRow.insertCell(3);
-
-                    // Add the values to the cells
-                    cell1.textContent = itemName;
-                    cell2.textContent = category;
-                    cell3.textContent = quantity;
-                    cell4.textContent = price;
-
-                    // Clear the form fields
-                    document.getElementById('inventory-form').reset();
-                });
-            </script>
         </div>
 </body>
 <script src="staffView.js"></script>

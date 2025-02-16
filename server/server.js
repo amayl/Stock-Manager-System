@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const app = express();
 const path = require("path");
 const bcrypt = require("bcrypt");
-const userCollection = require("/Users/amayl/Documents/Computer Science/compsci things/github repositories /A Level Computer Science NEA/stock-management-system/database/users.js");
+const userCollection = require("../database/users.js");
 const Product = require("../database/products");
 
 // Middleware

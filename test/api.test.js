@@ -2,7 +2,7 @@ const request = require("supertest"); // Import supertest for HTTP assertions
 const mongoose = require("mongoose"); // Import mongoose for MongoDB interactions
 const app = require("../server/server.js"); // Import the server application
 const userCollection = require("../database/users.js"); // Import user collection model
-const Product = require("../database/productsDB.js"); // Import product collection model
+const Product = require("../database/products.js"); // Import product collection model
 const { expect } = require("chai"); // Import Chai's expect for assertions
 
 // Connect to the test database before running tests
@@ -148,6 +148,106 @@ describe("API Tests", () => {
       expect(res.status).to.equal(401); // Expect status 404 for not found
       expect(res.body).to.have.property("error"); // Expect error message
       expect(res.body.error).to.equal("Email does not exist"); // Expect error message
+    });
+  });
+
+  describe("POST /staff-view", () => {
+    it("should add a new item to the inventory", async () => {
+      const newItem = {
+        itemName: "Apple",
+        category: "Fruits & Vegetables",
+        quantity: 10,
+        price: 1.5,
+      };
+
+      const res = await request(app).post("/staff-view").send(newItem);
+      expect(res.status).to.equal(200);
+      expect(res.body).to.have.property("message", "Item added successfully");
+
+      const products = await Product.find({});
+      expect(products).to.have.lengthOf(1);
+      expect(products[0]).to.include(newItem);
+    });
+
+    it("should not add an item with missing fields", async () => {
+      const newItem = {
+        category: "Fruits & Vegetables",
+        quantity: 10,
+        price: 1.5,
+      };
+
+      const res = await request(app).post("/staff-view").send(newItem);
+      expect(res.status).to.equal(400);
+      expect(res.body).to.have.property("error", "Item name is required");
+    });
+
+    it("should not add an item with invalid data", async () => {
+      const newItem = {
+        itemName: "Banana",
+        category: "Fruits & Vegetables",
+        quantity: -5, // Invalid quantity
+        price: -1.0, // Invalid price
+      };
+
+      const res = await request(app).post("/staff-view").send(newItem);
+      expect(res.status).to.equal(400);
+      expect(res.body).to.have.property(
+        "error",
+        "Quantity and price must be positive"
+      );
+    });
+
+    it("should not add an item with wrong data type", async () => {
+      const newItem = {
+        itemName: "Grapes",
+        category: "Fruits & Vegetables",
+        quantity: 4.23, // Invalid quantity
+        price: "twenty four", // Invalid price
+      };
+
+      const res = await request(app).post("/staff-view").send(newItem);
+      expect(res.status).to.equal(400);
+      expect(res.body).to.have.property(
+        "error",
+        "Price must be a float, quantity must be an integer"
+      );
+    });
+
+    it("should fetch inventory items", async () => {
+      const newItem = {
+        itemName: "Orange",
+        category: "Fruits & Vegetables",
+        quantity: 20,
+        price: 2.0,
+      };
+
+      await request(app).post("/staff-view").send(newItem);
+
+      const res = await request(app).get("/staff-view");
+      expect(res.status).to.equal(200);
+      expect(res.body).to.be.an("array").that.is.not.empty;
+      expect(res.body[0]).to.include(newItem);
+    });
+
+    it("should handle server errors gracefully", async () => {
+      // Simulate a server error by mocking the database call
+      const newItem = {
+        itemName: "Grapes",
+        category: "Fruits & Vegetables",
+        quantity: 15,
+        price: 3.0,
+      };
+
+      // Mocking the Product.create method to throw an error
+      const createStub = sinon
+        .stub(Product, "create")
+        .throws(new Error("Database error"));
+
+      const res = await request(app).post("/staff-view").send(newItem);
+      expect(res.status).to.equal(500);
+      expect(res.body).to.have.property("error", "Internal server error");
+
+      createStub.restore(); // Restore the original method
     });
   });
 });

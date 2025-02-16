@@ -1,0 +1,25 @@
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.scrollable-table {
+    max-height: 300px;
+    /* Set a maximum height for the table */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    display: block;
+    /* Make the table scrollable */
+}
