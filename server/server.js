@@ -85,16 +85,47 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "staff-view.html"));
+});
+
 app.post("/staff-view", async (req, res) => {
   const { itemName, price, quantity, category } = req.body;
 
+  // Check for missing fields
+  if (!itemName) {
+    return res.status(400).json({ error: "Item name is required" });
+  }
+  if (price < 0 || quantity < 0) {
+    return res
+      .status(400)
+      .json({ error: "Quantity and price must be positive" });
+  }
+  if (typeof price !== "number" || typeof quantity !== "number") {
+    return res
+      .status(400)
+      .json({ error: "Price must be a float, quantity must be an integer" });
+  }
+  if (typeof itemName !== "string" || quantity % 1 !== 0) {
+    return res.status(400).json({
+      error: "Item name must be a string and quantity must be an integer value",
+    });
+  }
+
+  const product = new Product({
+    name: itemName,
+    price,
+    quantity,
+    category,
+  });
+
   try {
-    const product = new Product(itemName, price, quantity, category);
     await product.save();
-    res.status(201).send({ message: "Product created successfully" });
+    console.log(product);
+    res.send({ message: "Item added successfully" });
   } catch (error) {
-    console.error("Error during product creation:", error);
-    res.status(500).send({ error: "Failed to create product" });
+    console.error("Error during product addition:", error);
+    res.status(500).send({ error: "Internal Server Error" });
   }
 });
 

@@ -6,8 +6,11 @@ document
     // Get the values from the form
     const itemName = document.getElementById("item-name").value;
     const category = document.getElementById("category").value;
-    const quantity = document.getElementById("item-quantity").value;
-    const price = document.getElementById("price").value;
+    const quantity = parseInt(
+      document.getElementById("item-quantity").value,
+      10
+    ); // Convert to integer
+    const price = parseFloat(document.getElementById("price").value); // Convert to float
 
     // Create a new row and cells
     const table = document.getElementById("inventory-list");
@@ -29,7 +32,7 @@ document
 
     // Send the data to the server
     const productData = {
-      itemName: itemName,
+      name: itemName,
       category: category,
       quantity: quantity,
       price: price,
@@ -55,5 +58,6 @@ document
       })
       .catch((error) => {
         console.error("Error:", error);
+        // Optionally, display an error message to the user
       });
   });

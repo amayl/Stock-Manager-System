@@ -4,6 +4,7 @@ const app = require("../server/server.js"); // Import the server application
 const userCollection = require("../database/users.js"); // Import user collection model
 const Product = require("../database/products.js"); // Import product collection model
 const { expect } = require("chai"); // Import Chai's expect for assertions
+const sinon = require("sinon"); // Import Sinon for mocking and stubbing
 
 // Connect to the test database before running tests
 before(async () => {
