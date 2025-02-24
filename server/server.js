@@ -120,9 +120,12 @@ app.post("/staff-view", async (req, res) => {
   });
 
   try {
-    await product.save();
-    console.log(product);
-    res.send({ message: "Item added successfully" });
+    const savedProduct = await product.save();
+    console.log(savedProduct);
+    res.send({
+      message: "Item added successfully",
+      itemName: savedProduct.name,
+    });
   } catch (error) {
     console.error("Error during product addition:", error);
     res.status(500).send({ error: "Internal Server Error" });

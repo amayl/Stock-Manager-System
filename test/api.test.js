@@ -167,16 +167,21 @@ describe("API Tests", () => {
 
       const products = await Product.find({});
       expect(products).to.have.lengthOf(1);
-      expect(products[0]).to.include(newItem);
+      expect(products[0]).to.include({
+        name: newItem.itemName,
+        price: newItem.price,
+        quantity: newItem.quantity,
+        category: newItem.category,
+      });
     });
 
     it("should not add an item with missing fields", async () => {
       const newItem = {
+        itemName: null,
         category: "Fruits & Vegetables",
         quantity: 10,
         price: 1.5,
       };
-
       const res = await request(app).post("/staff-view").send(newItem);
       expect(res.status).to.equal(400);
       expect(res.body).to.have.property("error", "Item name is required");
