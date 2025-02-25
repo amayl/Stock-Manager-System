@@ -155,7 +155,7 @@ describe("API Tests", () => {
   describe("POST /staff-view", () => {
     it("should add a new item to the inventory", async () => {
       const newItem = {
-        itemName: "Apple",
+        name: "Apple",
         category: "Fruits & Vegetables",
         quantity: 10,
         price: 1.5,
@@ -168,7 +168,7 @@ describe("API Tests", () => {
       const products = await Product.find({});
       expect(products).to.have.lengthOf(1);
       expect(products[0]).to.include({
-        name: newItem.itemName,
+        name: newItem.name,
         price: newItem.price,
         quantity: newItem.quantity,
         category: newItem.category,
@@ -177,7 +177,7 @@ describe("API Tests", () => {
 
     it("should not add an item with missing fields", async () => {
       const newItem = {
-        itemName: null,
+        name: null,
         category: "Fruits & Vegetables",
         quantity: 10,
         price: 1.5,
@@ -189,7 +189,7 @@ describe("API Tests", () => {
 
     it("should not add an item with invalid data", async () => {
       const newItem = {
-        itemName: "Banana",
+        name: "Banana",
         category: "Fruits & Vegetables",
         quantity: -5, // Invalid quantity
         price: -1.0, // Invalid price
@@ -205,7 +205,7 @@ describe("API Tests", () => {
 
     it("should not add an item with wrong data type", async () => {
       const newItem = {
-        itemName: "Grapes",
+        name: "Grapes",
         category: "Fruits & Vegetables",
         quantity: 4.23, // Invalid quantity
         price: "twenty four", // Invalid price
@@ -221,7 +221,7 @@ describe("API Tests", () => {
 
     it("should fetch inventory items", async () => {
       const newItem = {
-        itemName: "Orange",
+        name: "Orange",
         category: "Fruits & Vegetables",
         quantity: 20,
         price: 2.0,
@@ -238,7 +238,7 @@ describe("API Tests", () => {
     it("should handle server errors gracefully", async () => {
       // Simulate a server error by mocking the database call
       const newItem = {
-        itemName: "Grapes",
+        name: "Grapes",
         category: "Fruits & Vegetables",
         quantity: 15,
         price: 3.0,

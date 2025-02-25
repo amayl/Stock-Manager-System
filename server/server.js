@@ -90,10 +90,10 @@ app.get("/", (req, res) => {
 });
 
 app.post("/staff-view", async (req, res) => {
-  const { itemName, price, quantity, category } = req.body;
+  const { name, price, quantity, category } = req.body;
 
   // Check for missing fields
-  if (!itemName) {
+  if (!name) {
     return res.status(400).json({ error: "Item name is required" });
   }
   if (price < 0 || quantity < 0) {
@@ -106,14 +106,14 @@ app.post("/staff-view", async (req, res) => {
       .status(400)
       .json({ error: "Price must be a float, quantity must be an integer" });
   }
-  if (typeof itemName !== "string" || quantity % 1 !== 0) {
+  if (typeof name !== "string" || quantity % 1 !== 0) {
     return res.status(400).json({
       error: "Item name must be a string and quantity must be an integer value",
     });
   }
 
   const product = new Product({
-    name: itemName,
+    name,
     price,
     quantity,
     category,

@@ -38,7 +38,7 @@ document
       price: price,
     };
 
-    fetch("http://localhost:3000/staff-view", {
+    fetch("http://localhost:4000/staff-view", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
