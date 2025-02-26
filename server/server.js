@@ -132,6 +132,17 @@ app.post("/staff-view", async (req, res) => {
   }
 });
 
+// Endpoint to get all products
+app.get("/products", async (req, res) => {
+  try {
+    const products = await Product.find(); // Fetch all products from the database
+    res.json(products); // Send the products as a JSON response
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.listen(4000, () => {
   console.log("Server running on port 4000");
 });

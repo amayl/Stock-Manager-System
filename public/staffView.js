@@ -1,3 +1,38 @@
+document.addEventListener("DOMContentLoaded", function () {
+  // Fetch products from the database when the page loads
+  fetch("http://localhost:4000/products", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((products) => {
+      const table = document.getElementById("inventory-list");
+      products.forEach((product) => {
+        const newRow = table.insertRow();
+        const cell1 = newRow.insertCell(0);
+        const cell2 = newRow.insertCell(1);
+        const cell3 = newRow.insertCell(2);
+        const cell4 = newRow.insertCell(3);
+
+        // Add the values to the cells
+        cell1.textContent = product.name;
+        cell2.textContent = product.category;
+        cell3.textContent = product.quantity;
+        cell4.textContent = product.price;
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching products:", error);
+    });
+});
+
 document
   .getElementById("inventory-form")
   .addEventListener("submit", function (event) {
