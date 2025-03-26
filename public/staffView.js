@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
 function addRowToTable(product) {
   const table = document.getElementById("inventory-list");
   const newRow = table.insertRow();
+  newRow.setAttribute("data-id", product.id); // Set data-id attribute
+
   const cell1 = newRow.insertCell(0);
   const cell2 = newRow.insertCell(1);
   const cell3 = newRow.insertCell(2);
@@ -51,7 +53,7 @@ function addRowToTable(product) {
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Delete";
   deleteButton.onclick = function () {
-    deleteItem(product.id, newRow);
+    deleteItem(product.id, newRow); // Ensure product.id is passed correctly
   };
   cell6.appendChild(deleteButton);
 }
@@ -70,6 +72,7 @@ function editItem(product) {
 function deleteItem(productId, row) {
   // Send a request to delete the item from the server
   fetch(`http://localhost:4000/products/${productId}`, {
+    // Include productId here
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -115,6 +118,7 @@ document
       };
 
       fetch(`http://localhost:4000/products/${editingId}`, {
+        // Corrected URL
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -129,7 +133,7 @@ document
         })
         .then((data) => {
           // Update the row in the table
-          const row = document.querySelector(`tr[data-id="${editingId}"]`);
+          const row = document.querySelector(`tr[data-id="${editingId}"]`); // Ensure you have data-id attribute in your rows
           row.cells[0].textContent = itemName;
           row.cells[1].textContent = category;
           row.cells[2].textContent = quantity;
