@@ -26,6 +26,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "signup.html"));
 });
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "customer-view.html"));
+});
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -113,16 +117,13 @@ app.post("/staff-view", async (req, res) => {
     });
   }
 
-  const product = new Product({
-    name,
-    price,
-    quantity,
-    category,
-  });
-
   try {
-    const savedProduct = await product.save();
-    console.log(savedProduct);
+    const savedProduct = await Product.create({
+      name,
+      price,
+      quantity,
+      category,
+    });
     res.send({
       message: "Item added successfully",
       itemName: savedProduct.name,
@@ -205,6 +206,70 @@ app.delete("/products/:id", async (req, res) => {
     res.json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error("Error deleting product:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Endpoint to get all products
+app.get("/staff-view", async (req, res) => {
+  try {
+    const products = await Product.find(); // Fetch all products from the database
+    res.json(products); // Send the products as a JSON response
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Endpoint to get inventory statistics
+app.get("/statistics", async (req, res) => {
+  try {
+    const products = await Product.find();
+    const totalItems = products.length;
+    const totalQuantity = products.reduce(
+      (sum, product) => sum + product.quantity,
+      0
+    );
+    const totalValue = products.reduce(
+      (sum, product) => sum + product.price * product.quantity,
+      0
+    );
+
+    // Calculate category breakdown
+    const categoryBreakdown = {};
+    products.forEach((product) => {
+      categoryBreakdown[product.category] =
+        (categoryBreakdown[product.category] || 0) + 1;
+    });
+
+    res.json({
+      totalItems,
+      totalQuantity,
+      totalValue,
+      categoryBreakdown,
+    });
+  } catch (error) {
+    console.error("Error fetching statistics:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Endpoint to get low stock products
+app.get("/low-stock", async (req, res) => {
+  const lowStockThreshold = 50; // Define your low stock threshold here
+  // low stock defined to be 50
+  try {
+    const lowStockProducts = await Product.find({
+      quantity: { $lt: lowStockThreshold },
+    });
+
+    if (lowStockProducts.length === 0) {
+      return res.json({ message: "No low stock products." });
+    }
+
+    res.json(lowStockProducts);
+  } catch (error) {
+    console.error("Error fetching low stock products:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

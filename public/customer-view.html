@@ -1,14 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View stock</title>
+    <link rel="stylesheet" href="staff-style.css">
+    <title>Customer View - Stock Manager</title>
 </head>
+
 <body>
-    <h1>Coming soon</h1>
-    <div>
-        
+    <div class="container">
+        <h1>Inventory Management System - Customer View</h1>
+
+        <!-- View Statistics Button -->
+        <div class="view-stats">
+            <button id="viewStatsBtn">View Statistics</button>
+        </div>
+
+        <!-- Low Stock Button -->
+        <button id="lowStockBtn">Check Low Stock</button>
+        <div id="lowStockList"></div>
+
+        <!-- Statistics Section (Embedded) -->
+        <div id="statistics" style="display: none;">
+            <h2>Statistics</h2>
+            <p id="totalItems"></p>
+            <p id="totalQuantity"></p>
+            <p id="totalValue"></p>
+            <h3>Category Breakdown</h3>
+            <ul id="categoryBreakdown"></ul>
+        </div>
+
+        <!-- Inventory Table -->
+        <div class="scrollable-table">
+            <table id="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Price per unit (£)</th>
+                    </tr>
+                </thead>
+                <tbody id="inventory-list">
+                    <!-- Inventory items will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
     </div>
+    <script src="customerView.js"></script>
 </body>
+
 </html>

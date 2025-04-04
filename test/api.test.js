@@ -251,9 +251,186 @@ describe("API Tests", () => {
 
       const res = await request(app).post("/staff-view").send(newItem);
       expect(res.status).to.equal(500);
-      expect(res.body).to.have.property("error", "Internal server error");
+      expect(res.body).to.have.property("error", "Internal Server Error");
 
       createStub.restore(); // Restore the original method
+    });
+  });
+
+  describe("PUT /products/:id", () => {
+    let productId; // Variable to hold the ID of the product to be updated
+
+    // Create a product before running each test
+    beforeEach(async () => {
+      const product = new Product({
+        name: "Test Product", // Name of the product
+        price: 10.0, // Price of the product
+        quantity: 5, // Quantity of the product
+        category: "Test Category", // Category of the product
+      });
+      const savedProduct = await product.save(); // Save the product to the database
+      productId = savedProduct._id; // Store the product ID for later use in tests
+    });
+
+    // Test case for successfully updating a product
+    it("should update a product successfully", async () => {
+      const updatedProductData = {
+        name: "Updated Product", // New name for the product
+        price: 15.0, // New price for the product
+        quantity: 10, // New quantity for the product
+        category: "Updated Category", // New category for the product
+      };
+
+      // Send a PUT request to update the product
+      const res = await request(app)
+        .put(`/products/${productId}`) // Use the stored product ID
+        .send(updatedProductData) // Send the updated product data
+        .set("Content-Type", "application/json"); // Set the content type to JSON
+
+      // Assertions to verify the response
+      expect(res.status).to.equal(200); // Expect a 200 OK status
+      expect(res.body.message).to.equal("Product updated successfully"); // Expect success message
+      expect(res.body.product.name).to.equal(updatedProductData.name); // Check updated name
+      expect(res.body.product.price).to.equal(updatedProductData.price); // Check updated price
+      expect(res.body.product.quantity).to.equal(updatedProductData.quantity); // Check updated quantity
+      expect(res.body.product.category).to.equal(updatedProductData.category); // Check updated category
+    });
+
+    // Test case for trying to update a non-existent product
+    it("should return 404 if product not found", async () => {
+      const nonExistentId = "60d5ec49f1b2c8b1f8e4b8c1"; // Use a random ID that doesn't exist
+
+      // Send a PUT request to update a non-existent product
+      const res = await request(app)
+        .put(`/products/${nonExistentId}`)
+        .send({
+          name: "Non-existent Product", // Attempt to update with new data
+          price: 20.0,
+          quantity: 5,
+          category: "Non-existent Category",
+        })
+        .set("Content-Type", "application/json");
+
+      // Assertions to verify the response
+      expect(res.status).to.equal(404); // Expect a 404 Not Found status
+      expect(res.body.error).to.equal("Product not found"); // Expect error message
+    });
+
+    // Test case for missing required fields during update
+    it("should return 400 if required fields are missing", async () => {
+      // Send a PUT request with missing required fields
+      const res = await request(app)
+        .put(`/products/${productId}`)
+        .send({
+          price: 15.0, // Missing name, quantity, and category
+        })
+        .set("Content-Type", "application/json");
+
+      // Assertions to verify the response
+      expect(res.status).to.equal(400); // Expect a 400 Bad Request status
+      expect(res.body.error).to.equal("Item name is required"); // Expect error message
+    });
+  });
+
+  describe("DELETE /products/:id", () => {
+    let productId; // Variable to hold the ID of the product to be deleted
+
+    // Create a product before running each test
+    beforeEach(async () => {
+      const product = new Product({
+        name: "Test Product", // Name of the product
+        price: 10.0, // Price of the product
+        quantity: 5, // Quantity of the product
+        category: "Test Category", // Category of the product
+      });
+      const savedProduct = await product.save(); // Save the product to the database
+      productId = savedProduct._id; // Store the product ID for later use in tests
+    });
+
+    // Test case for successfully deleting a product
+    it("should delete a product successfully", async () => {
+      // Send a DELETE request to delete the product
+      const res = await request(app).delete(`/products/${productId}`);
+
+      // Assertions to verify the response
+      expect(res.status).to.equal(200); // Expect a 200 OK status
+      expect(res.body.message).to.equal("Product deleted successfully"); // Expect success message
+
+      // Verify that the product is actually deleted
+      const deletedProduct = await Product.findById(productId); // Try to find the deleted product
+      expect(deletedProduct).to.be.null; // Product should be null (not found)
+    });
+
+    // Test case for trying to delete a non-existent product
+    it("should return 404 if product not found", async () => {
+      const nonExistentId = "60d5ec49f1b2c8b1f8e4b8c1"; // Use a random ID that doesn't exist
+
+      // Send a DELETE request to delete a non-existent product
+      const res = await request(app).delete(`/products/${nonExistentId}`);
+
+      // Assertions to verify the response
+      expect(res.status).to.equal(404); // Expect a 404 Not Found status
+      expect(res.body.error).to.equal("Product not found"); // Expect error message
+    });
+  });
+
+  describe("GET /statistics", () => {
+    beforeEach(async () => {
+      // Add some products to the database for testing statistics
+      await Product.insertMany([
+        {
+          name: "Apple",
+          price: 1.5,
+          quantity: 10,
+          category: "Fruits & Vegetables",
+        },
+        {
+          name: "Banana",
+          price: 1.0,
+          quantity: 20,
+          category: "Fruits & Vegetables",
+        },
+        {
+          name: "Carrot",
+          price: 0.5,
+          quantity: 15,
+          category: "Fruits & Vegetables",
+        },
+        {
+          name: "Chicken",
+          price: 5.0,
+          quantity: 5,
+          category: "Meat & Poultry",
+        },
+      ]);
+    });
+
+    it("should return inventory statistics", async () => {
+      const res = await request(app).get("/statistics");
+
+      expect(res.status).to.equal(200); // Expect status 200
+      expect(res.body).to.have.property("totalItems", 4); // Expect total items to be 4
+      expect(res.body).to.have.property("totalQuantity", 50); // Expect total quantity to be 50
+      expect(res.body).to.have.property("totalValue", 67.5); // Expect total value to be £67.5
+
+      // Check category breakdown
+      expect(res.body.categoryBreakdown).to.deep.equal({
+        "Fruits & Vegetables": 3,
+        "Meat & Poultry": 1,
+      });
+    });
+
+    it("should return 500 if there is a server error", async () => {
+      // Mock the Product.find method to throw an error
+      const findStub = sinon
+        .stub(Product, "find")
+        .throws(new Error("Database error"));
+
+      const res = await request(app).get("/statistics");
+      expect(res.status).to.equal(500); // Expect status 500
+      expect(res.body).to.have.property("error", "Internal Server Error"); // Expect error message
+
+      findStub.restore(); // Restore the original method
     });
   });
 });

@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((products) => {
       const table = document.getElementById("inventory-list");
       products.forEach((product) => {
+        product.id = product._id;
+        delete product._id;
         addRowToTable(product);
       });
     })
@@ -24,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function addRowToTable(product) {
+  console.log(product);
+
   const table = document.getElementById("inventory-list");
   const newRow = table.insertRow();
   newRow.setAttribute("data-id", product.id); // Set data-id attribute
@@ -223,3 +227,67 @@ document
         });
     }
   });
+
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("viewStatsBtn")
+    .addEventListener("click", async () => {
+      try {
+        const response = await fetch("http://localhost:4000/statistics");
+        const data = await response.json();
+
+        // Display statistics
+        document.getElementById(
+          "totalItems"
+        ).innerText = `Total Items: ${data.totalItems}`;
+        document.getElementById(
+          "totalQuantity"
+        ).innerText = `Total Quantity: ${data.totalQuantity}`;
+        document.getElementById(
+          "totalValue"
+        ).innerText = `Total Value: £${data.totalValue.toFixed(2)}`;
+
+        // Display category breakdown
+        const categoryList = document.getElementById("categoryBreakdown");
+        categoryList.innerHTML = ""; // Clear previous data
+        for (const [category, count] of Object.entries(
+          data.categoryBreakdown
+        )) {
+          const li = document.createElement("li");
+          li.innerText = `${category}: ${count}`;
+          categoryList.appendChild(li);
+        }
+
+        // Show the statistics section
+        document.getElementById("statistics").style.display = "block";
+      } catch (error) {
+        console.error("Error fetching statistics:", error);
+        alert("Failed to fetch statistics.");
+      }
+    });
+});
+
+document.getElementById("lowStockBtn").addEventListener("click", async () => {
+  try {
+    const response = await fetch("http://localhost:4000/staff-view");
+    const data = await response.json();
+
+    const lowStockList = document.getElementById("lowStockList");
+    lowStockList.innerHTML = ""; // Clear previous data
+
+    if (data.message) {
+      lowStockList.innerText = data.message; // Display message if no low stock products
+    } else {
+      data.forEach((product) => {
+        if (product.quantity <= 50) {
+          const li = document.createElement("li");
+          li.innerText = `${product.name} - Quantity: ${product.quantity}`;
+          lowStockList.appendChild(li);
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Error fetching low stock products:", error);
+    alert("Failed to fetch low stock products.");
+  }
+});
