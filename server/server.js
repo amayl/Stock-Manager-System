@@ -30,6 +30,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "customer-view.html"));
 });
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "staff-view.html"));
+});
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -87,10 +91,6 @@ app.post("/signup", async (req, res) => {
     console.error("Error during signup:", error);
     res.status(500).send({ error: "Internal Server Error" });
   }
-});
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "staff-view.html"));
 });
 
 // Endpoint to add a product
@@ -272,6 +272,10 @@ app.get("/low-stock", async (req, res) => {
     console.error("Error fetching low stock products:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
+});
+
+app.use((req, res) => {
+  res.status(404).send("Page Not Found");
 });
 
 app.listen(4000, () => {
