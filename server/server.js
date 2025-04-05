@@ -10,6 +10,7 @@ const Product = require("../database/products");
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../public"))); // Serve static files
 
 // MongoDB connection
 mongoose
@@ -21,6 +22,11 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 const saltRounds = 10;
+
+// Redirect root URL to signup page
+app.get("/", (req, res) => {
+  res.redirect("/signup"); // Redirect to the signup page
+});
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "signup.html"));
