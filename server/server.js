@@ -1,32 +1,11 @@
-console.log("running");
-
 const express = require("express");
-
-console.log("runni2312324ng");
-
 const cors = require("cors");
-
-console.log("runnin54739865294865248965g");
-
 const mongoose = require("mongoose");
-
-console.log("346983984572986592847604276807268922646");
-
 const path = require("path");
-
-console.log("runningFDJHGEIRUGBWEIUGBERDKGBERIJGHERIUBHNS");
-
 const bcrypt = require("bcrypt");
-
-console.log(
-  "vubyibffwiyrbhsjnvehjrtdbgrdjxghvberjdbgndjhfmbvndjgbndknmdmwsdjh4uery4u8343ihrj"
-);
-
 const app = express();
 const userCollection = require("../database/users.js");
 const Product = require("../database/products");
-
-console.log("runnin4t4tergg");
 
 // Middleware
 app.use(express.static("./public"));
