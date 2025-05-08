@@ -1,4 +1,5 @@
 // Import the mongoose module
+
 const mongoose = require("mongoose");
 
 // Create a user schema

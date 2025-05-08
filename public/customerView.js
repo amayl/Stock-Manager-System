@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Fetch products from the database when the page loads
-  fetch("http://localhost:4000/products", {
+  fetch("/api/products", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -41,7 +41,7 @@ function addRowToTable(product) {
 
 document.getElementById("viewStatsBtn").addEventListener("click", async () => {
   try {
-    const response = await fetch("http://localhost:4000/statistics");
+    const response = await fetch("/api/statistics");
     const data = await response.json();
 
     // Display statistics
@@ -74,7 +74,7 @@ document.getElementById("viewStatsBtn").addEventListener("click", async () => {
 
 document.getElementById("lowStockBtn").addEventListener("click", async () => {
   try {
-    const response = await fetch("http://localhost:4000/low-stock");
+    const response = await fetch("/api/low-stock");
     const data = await response.json();
 
     const lowStockList = document.getElementById("lowStockList");

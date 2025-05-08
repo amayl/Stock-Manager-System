@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Fetch products from the database when the page loads
-  fetch("http://localhost:4000/products", {
+  fetch("/api/products", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -75,7 +75,7 @@ function editItem(product) {
 
 function deleteItem(productId, row) {
   // Send a request to delete the item from the server
-  fetch(`http://localhost:4000/products/${productId}`, {
+  fetch(`/api/products/${productId}`, {
     // Include productId here
     method: "DELETE",
     headers: {
@@ -121,7 +121,7 @@ document
         price: price,
       };
 
-      fetch(`http://localhost:4000/products/${editingId}`, {
+      fetch(`/api/products/${editingId}`, {
         // Corrected URL
         method: "PUT",
         headers: {
@@ -201,7 +201,7 @@ document
         price: price,
       };
 
-      fetch("http://localhost:4000/staff-view", {
+      fetch("/api/staff-view", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("viewStatsBtn")
     .addEventListener("click", async () => {
       try {
-        const response = await fetch("http://localhost:4000/statistics");
+        const response = await fetch("/api/statistics");
         const data = await response.json();
 
         // Display statistics
@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.getElementById("lowStockBtn").addEventListener("click", async () => {
   try {
-    const response = await fetch("http://localhost:4000/staff-view");
+    const response = await fetch("/api/staff-view");
     const data = await response.json();
 
     const lowStockList = document.getElementById("lowStockList");

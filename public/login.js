@@ -7,7 +7,7 @@ document.getElementById("form").addEventListener("submit", function (event) {
   };
 
   // Send the data to the server
-  fetch("http://localhost:4000/login", {
+  fetch("/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,13 +1,35 @@
+console.log("running");
+
 const express = require("express");
+
+console.log("runni2312324ng");
+
 const cors = require("cors");
+
+console.log("runnin54739865294865248965g");
+
 const mongoose = require("mongoose");
-const app = express();
+
+console.log("346983984572986592847604276807268922646");
+
 const path = require("path");
+
+console.log("runningFDJHGEIRUGBWEIUGBERDKGBERIJGHERIUBHNS");
+
 const bcrypt = require("bcrypt");
+
+console.log(
+  "vubyibffwiyrbhsjnvehjrtdbgrdjxghvberjdbgndjhfmbvndjgbndknmdmwsdjh4uery4u8343ihrj"
+);
+
+const app = express();
 const userCollection = require("../database/users.js");
 const Product = require("../database/products");
 
+console.log("runnin4t4tergg");
+
 // Middleware
+app.use(express.static("./public"));
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public"))); // Serve static files
@@ -25,22 +47,22 @@ const saltRounds = 10;
 
 // Redirect root URL to signup page
 app.get("/", (req, res) => {
-  res.redirect("/signup"); // Redirect to the signup page
+  res.redirect("/signup.html"); // Redirect to the signup page
 });
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "signup.html"));
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "signup.html"));
+// });
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "customer-view.html"));
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "customer-view.html"));
+// });
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "staff-view.html"));
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "staff-view.html"));
+// });
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -66,7 +88,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/signup", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
   const { fname, lname, email, password, role } = req.body;
   try {
     // Check if the email already exists
@@ -100,7 +122,7 @@ app.post("/signup", async (req, res) => {
 });
 
 // Endpoint to add a product
-app.post("/staff-view", async (req, res) => {
+app.post("/api/staff-view", async (req, res) => {
   const { name, price, quantity, category } = req.body;
 
   // Check for missing fields
@@ -142,7 +164,7 @@ app.post("/staff-view", async (req, res) => {
 });
 
 // Endpoint to get all products
-app.get("/products", async (req, res) => {
+app.get("/api/products", async (req, res) => {
   try {
     const products = await Product.find(); // Fetch all products from the database
     res.json(products); // Send the products as a JSON response
@@ -153,7 +175,7 @@ app.get("/products", async (req, res) => {
 });
 
 // Endpoint to update a product
-app.put("/products/:id", async (req, res) => {
+app.put("/api/products/:id", async (req, res) => {
   const { id } = req.params; // Get the product ID from the URL
   const { name, price, quantity, category } = req.body; // Get the updated data from the request body
 
@@ -199,7 +221,7 @@ app.put("/products/:id", async (req, res) => {
 });
 
 // Endpoint to delete a product
-app.delete("/products/:id", async (req, res) => {
+app.delete("/api/products/:id", async (req, res) => {
   const { id } = req.params; // Get the product ID from the URL
 
   try {
@@ -217,7 +239,7 @@ app.delete("/products/:id", async (req, res) => {
 });
 
 // Endpoint to get all products
-app.get("/staff-view", async (req, res) => {
+app.get("/api/staff-view", async (req, res) => {
   try {
     const products = await Product.find(); // Fetch all products from the database
     res.json(products); // Send the products as a JSON response
@@ -228,7 +250,7 @@ app.get("/staff-view", async (req, res) => {
 });
 
 // Endpoint to get inventory statistics
-app.get("/statistics", async (req, res) => {
+app.get("/api/statistics", async (req, res) => {
   try {
     const products = await Product.find();
     const totalItems = products.length;
@@ -261,7 +283,7 @@ app.get("/statistics", async (req, res) => {
 });
 
 // Endpoint to get low stock products
-app.get("/low-stock", async (req, res) => {
+app.get("/api/low-stock", async (req, res) => {
   const lowStockThreshold = 50; // Define your low stock threshold here
   // low stock defined to be 50
   try {

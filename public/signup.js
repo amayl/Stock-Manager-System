@@ -21,7 +21,7 @@ document
     }
 
     // Send the data to the server
-    fetch("http://localhost:4000/signup", {
+    fetch("/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
