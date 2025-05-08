@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, "../public"))); // Serve static file
 // MongoDB connection
 mongoose
   .connect(
-    "mongodb+srv://amayl:<db_password>@stock-manager.nmpf7.mongodb.net/",
+    "mongodb+srv://amayl:<sQmLdTr7TH>@stock-manager.nmpf7.mongodb.net/",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
