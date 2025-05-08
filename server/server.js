@@ -15,10 +15,13 @@ app.use(express.static(path.join(__dirname, "../public"))); // Serve static file
 
 // MongoDB connection
 mongoose
-  .connect("mongodb://localhost:27017/stockManager", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://amayl:<db_password>@stock-manager.nmpf7.mongodb.net/",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log("MongoDB connection established"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
@@ -28,18 +31,6 @@ const saltRounds = 10;
 app.get("/", (req, res) => {
   res.redirect("/signup.html"); // Redirect to the signup page
 });
-
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "signup.html"));
-// });
-
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "customer-view.html"));
-// });
-
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "staff-view.html"));
-// });
 
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
