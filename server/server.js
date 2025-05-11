@@ -13,10 +13,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public"))); // Serve static files
 
+// password to mongodb:
+// Fz5sqZWlTvoY5tjv
+
 // MongoDB connection
 mongoose
   .connect(
-    "mongodb+srv://amayl:<sQmLdTr7TH>@stock-manager.nmpf7.mongodb.net/",
+    "mongodb+srv://amayl:Fz5sqZWlTvoY5tjv@cluster0.ab8jfkb.mongodb.net/",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
