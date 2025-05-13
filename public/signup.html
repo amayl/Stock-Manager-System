@@ -1,61 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nithush Foods</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <h1>Nithush Foods</h1>
     <ul id="users"></ul>
 
     <div>
-        <div id="signupForm">
-            <div class="container">
-              <h1>Sign Up</h1>
-              <p>Please fill in this form to create an account.</p>
+      <div id="signupForm">
+        <div class="container">
+          <h1>Sign Up</h1>
+          <p>Please fill in this form to create an account.</p>
 
-              <div class="inputField">
-                <label for="fname">First name:</label>
-                <input type="text" placeholder="Enter first name" id="fname" name="fname" required><br>
-              </div>
-
-              <div class="inputField">
-                <label for="lname">Last name:</label>
-                <input type="text" placeholder="Enter last name" id="lname" name="lname" required><br>
-              </div>
-          
-              <div class="inputField">
-                <label for="email">Email</label>
-                <input type="email" placeholder="Enter Email" id="email" name="email" required><br>
-              </div>
-          
-              <div class="inputField">
-                <label for="psw">Password</label>
-                <input type="password" placeholder="Enter Password" id="psw" name="psw" required><br>
-              </div>
-              
-              <p><b>Select role:</b></p>
-
-              <div class="radioBtn">
-                <input type="radio" id="customer" name="role" value="customer" required>
-                <label for="customer">Customer</label><br>
-              </div>
-
-              <div class="radioBtn">
-                <input type="radio" id="owner" name="role" value="staff">
-                <label for="owner">Staff</label>
-              </div>
-
-              <div class="clearfix">
-                <button class="signupbtn" id="signupBtn">Sign Up</button>
-                <a href="/login.html"><button>Already have an account? Login</button></a>
-              </div>
-            </div>
+          <div class="inputField">
+            <label for="fname">First name:</label>
+            <input
+              type="text"
+              placeholder="Enter first name"
+              id="fname"
+              name="fname"
+              required
+            /><br />
           </div>
-    </div>
 
+          <div class="inputField">
+            <label for="lname">Last name:</label>
+            <input
+              type="text"
+              placeholder="Enter last name"
+              id="lname"
+              name="lname"
+              required
+            /><br />
+          </div>
+
+          <div class="inputField">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              placeholder="Enter Email"
+              id="email"
+              name="email"
+              required
+            /><br />
+          </div>
+
+          <div class="inputField">
+            <label for="psw">Password</label>
+            <input
+              type="password"
+              placeholder="Enter Password"
+              id="psw"
+              name="psw"
+              required
+            /><br />
+          </div>
+
+          <p><b>Select role:</b></p>
+
+          <div class="radioBtn">
+            <input
+              type="radio"
+              id="customer"
+              name="role"
+              value="customer"
+              required
+            />
+            <label for="customer">Customer</label><br />
+          </div>
+
+          <div class="radioBtn">
+            <input type="radio" id="owner" name="role" value="staff" />
+            <label for="owner">Staff</label>
+          </div>
+
+          <div class="clearfix">
+            <button class="signupbtn" id="signupBtn">Sign Up</button>
+            <a href="/login.html"
+              ><button>Already have an account? Login</button></a
+            >
+            <br />
+            <a href="/secret.html"><button>secret button</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="modal hidden" id="registered-modal">
       <div class="modal-box">
@@ -67,5 +100,5 @@
     </div>
 
     <script src="signup.js"></script>
-</body>
+  </body>
 </html>
