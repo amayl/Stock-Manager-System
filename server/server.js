@@ -13,20 +13,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public"))); // Serve static files
 
-// password to mongodb:
-// Fz5sqZWlTvoY5tjv
-
 // MongoDB connection
+const mongoURI =
+  "mongodb+srv://amayl:Fz5sqZWlTvoY5tjv@cluster0.ab8jfkb.mongodb.net/inventory?retryWrites=true&w=majority";
+
 mongoose
-  .connect(
-    "mongodb+srv://amayl:Fz5sqZWlTvoY5tjv@cluster0.ab8jfkb.mongodb.net/",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
-  .then(() => console.log("MongoDB connection established"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB Atlas connection established"))
+  .catch((err) => console.error("MongoDB Atlas connection error:", err));
 
 const saltRounds = 10;
 
