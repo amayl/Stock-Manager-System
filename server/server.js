@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const app = express();
 const userCollection = require("../database/users.js");
 const Product = require("../database/products");
+require("dotenv").config();
 
 // Middleware
 app.use(express.static("./public"));
@@ -14,9 +15,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public"))); // Serve static files
 
 // MongoDB connection
-const mongoURI =
-  "mongodb+srv://amayl:Fz5sqZWlTvoY5tjv@cluster0.ab8jfkb.mongodb.net/inventory?retryWrites=true&w=majority";
-
+const mongoURI = process.env.MONGODB_URI; // Use the connection string from .env
 mongoose
   .connect(mongoURI, {
     useNewUrlParser: true,
@@ -24,6 +23,17 @@ mongoose
   })
   .then(() => console.log("MongoDB Atlas connection established"))
   .catch((err) => console.error("MongoDB Atlas connection error:", err));
+
+// // MongoDB connection
+// const mongoURI = process.env.MONGODB_URI;
+
+// mongoose
+//   .connect(mongoURI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log("MongoDB Atlas connection established"))
+//   .catch((err) => console.error("MongoDB Atlas connection error:", err));
 
 const saltRounds = 10;
 
