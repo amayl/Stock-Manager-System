@@ -1,25 +1,148 @@
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-    border: 1px solid #ddd;
+/* staff-style.css */
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f7f9fb;
+    color: #222;
+    margin: 0;
+    padding: 0;
 }
 
-th,
-td {
+header {
+    background: #2d6cdf;
+    color: #fff;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(45, 108, 223, 0.08);
+}
+
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    padding: 2rem 2.5rem;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background: #f9fbfd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 1rem;
     text-align: left;
-    padding: 16px;
+}
+
+th {
+    background: #e6eefc;
+    color: #2d6cdf;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background: #f3f6fa;
 }
 
-.scrollable-table {
-    max-height: 300px;
-    /* Set a maximum height for the table */
-    overflow-y: auto;
-    /* Enable vertical scrolling */
+tr:hover {
+    background: #eaf1fd;
+}
+
+button, .btn {
+    background: #2d6cdf;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin: 0.2rem 0.5rem;
+}
+
+button:hover, .btn:hover {
+    background: #1a4fa0;
+}
+
+input[type="text"], input[type="number"], select {
+    padding: 0.6rem 1rem;
+    border: 1px solid #c3d0e8;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    background: #f7f9fb;
+}
+
+form {
+    margin: 2rem 0;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
     display: block;
-    /* Make the table scrollable */
+}
+
+.form-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-row label {
+    margin-bottom: 0;
+    min-width: 120px;
+}
+
+.form-row input[type="text"],
+.form-row input[type="number"],
+.form-row select {
+    flex: 1 1 200px;
+    margin-bottom: 0;
+}
+
+.form-row button,
+.form-row .btn {
+    margin: 0 0 0 1rem;
+    align-self: flex-end;
+    white-space: nowrap;
+}
+
+form {
+    max-width: 600px;
+    margin: 2rem 0;
+}
+
+@media (max-width: 700px) {
+    main {
+        padding: 1rem;
+    }
+    table, th, td {
+        font-size: 0.95rem;
+        padding: 0.6rem;
+    }
+    .form-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+    .form-row button,
+    .form-row .btn {
+        margin: 0.5rem 0 0 0;
+        width: 100%;
+    }
 }

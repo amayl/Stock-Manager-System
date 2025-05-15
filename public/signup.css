@@ -1,0 +1,126 @@
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: none;
+    background: #b2b2b27b;
+    backdrop-filter: blur(7px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.hidden {
+    display: none !important;
+}
+
+.modal-box {
+    width: 40vw;
+    min-width: 320px;
+    max-width: 420px;
+    height: auto;
+    padding: 32px 24px;
+    background-color: #fff;
+    border: 1px solid #555;
+    border-radius: 12px;
+    font-size: 18px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+    min-height: 100vh;
+    margin: 0;
+    color: #22223b;
+}
+
+.container {
+    background: #fff;
+    max-width: 400px;
+    margin: 60px auto 0 auto;
+    padding: 2rem 2.5rem;
+    border-radius: 14px;
+    box-shadow: 0 6px 32px 0 rgba(30, 41, 59, 0.12);
+    border: 1px solid #e0e7ff;
+}
+
+h1 {
+    font-weight: 700;
+    color: #3a3a5a;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.inputField {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    margin: 0.7rem 0 1.2rem 0;
+    border: 1px solid #bfc9d9;
+    border-radius: 7px;
+    font-size: 1rem;
+    background: #f5f7fa;
+    transition: border 0.2s;
+}
+
+.inputField:focus {
+    border: 1.5px solid #6366f1;
+    outline: none;
+    background: #fff;
+}
+
+.radioBtn {
+    margin: 0 0.7rem 0 0;
+    accent-color: #6366f1;
+}
+
+button,
+.btn {
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+    transition: background 0.2s;
+}
+
+button:hover,
+.btn:hover {
+    background: #4f46e5;
+}
+
+a {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    text-align: center;
+}
+
+.radioBtn {
+    padding: 0.5rem;
+}
+
+.inputField {
+    padding: 0.8rem; }
