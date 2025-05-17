@@ -13,9 +13,8 @@ app.use(express.static("./public"));
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public"))); // Serve static files
-
 // MongoDB connection
-const mongoURI = process.env.MONGODB_URI; // Use the connection string from .env
+const mongoURI = process.env.MONGO_URI;
 mongoose
   .connect(mongoURI, {
     useNewUrlParser: true,
@@ -23,17 +22,6 @@ mongoose
   })
   .then(() => console.log("MongoDB Atlas connection established"))
   .catch((err) => console.error("MongoDB Atlas connection error:", err));
-
-// // MongoDB connection
-// const mongoURI = process.env.MONGODB_URI;
-
-// mongoose
-//   .connect(mongoURI, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   })
-//   .then(() => console.log("MongoDB Atlas connection established"))
-//   .catch((err) => console.error("MongoDB Atlas connection error:", err));
 
 const saltRounds = 10;
 
