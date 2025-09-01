@@ -6,6 +6,7 @@ My project is a **Stock Management System** designed for **Nithush Foods**, a lo
 📄 Full written report (NEA documentation):  
 [View Report on Google Docs](https://docs.google.com/document/d/1mwzLWyiwAMgBnw9Aq8avnjKRL7aphR7WJLa0Er13ATA/edit?usp=sharing)
 
+View the deployed app: https://ntshfoods.com
 ---
 
 ## 🎯 Project Aims
